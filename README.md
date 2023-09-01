@@ -4,10 +4,9 @@
 
 ## Introduction and overview
 
-
-![Image](https://github.com/tvanwinckel/image.jpg?raw=true "image")
-
 The goal of this document is to offer an easy to understand overview of what REST is. How it came to be, how it is intended to be used and how you can design your own REST-API
+
+> **TODO - Aanvullen inhoudstabel**
 
 * REST: the theory
   * Before there was REST
@@ -19,10 +18,6 @@ The goal of this document is to offer an easy to understand overview of what RES
 ---
 
 ## REST: the theory
-
-### Before there was REST
-
-TODO
 
 ### Where does REST come from?
 
@@ -59,8 +54,6 @@ The following four guidelines can help us achieve a uniform REST interface:
 * **Self-descriptive messages**: Each resource representation should carry enough information to describe how to process the message. It should also provide information of the additional actions that the client can perform on the resource.
 * **Hypermedia as the engine of application state**: The client should have only the initial URI of the application. The client application should dynamically drive all other resources and interactions with the use of hyperlinks.
 
-> Can we put in an example piece of JSON showing this?
-
 #### Client <-> Server separation:
 
 The client-server design pattern enforces the separation of concerns, which helps the client and the server components evolve independently. By separating the user interface concerns (client) from the data storage concerns (server), we improve the portability of the user interface across multiple platforms and improve scalability by simplifying the server components.
@@ -77,11 +70,9 @@ The server cannot take advantage of any previously stored context information on
 
 #### Layered System:
 
-``The layered system style allows an architecture to be composed of hierarchical layers by constraining component behavior.``
+The layered system style allows an architecture to be composed of hierarchical layers by constraining component behavior.
 
-``For example, in a layered system, each component cannot see beyond the immediate layer they are interacting with.``
-
-``Between the client who requests a representation of a resource’s state, and the server who sends the response back, there might be a number of servers in the middle. These servers might provide a security layer, a caching layer, a load-balancing layer, or other functionality. Those layers should not affect the request or the response. The client is agnostic as to how many layers, if any, there are between the client and the actual server responding to the request.``
+For example, in a layered system, each component cannot see beyond the immediate layer they are interacting with. Between the client who requests a representation of a resource’s state, and the server who sends the response back, there might be a number of servers in the middle. These servers might provide a security layer, a caching layer, a load-balancing layer, or other functionality. Those layers should not affect the request or the response. The client is agnostic as to how many layers, if any, there are between the client and the actual server responding to the request.
 
 #### Cacheable:
 
@@ -147,15 +138,15 @@ When implementing REST using HTTP, one can use the URL as a unique identifier fo
 http://www.my-rest-api.com/api/resource-type/1
 ```
 
-The above example 
-
 ### Media Types
 
-using headers
+Resource media types cqn be define using headers.
+
+```http
+Content-Type: application/json
+```
 
 ### Resource Methods
-
-https://restfulapi.net/http-methods/
 
 | Method    | Usage     |
 | :------  | -------  |
@@ -179,13 +170,13 @@ Use GET requests to retrieve resource representation/information only – and no
 
 #### Examples:
 ```http
-GET-all of a specific resource-type:
+GET all of a specific resource-type:
     http://www.my-rest-api.com/api/resource-type/
 
-GET-one of a specific resource-type by id:
+GET one of a specific resource-type by id:
     http://www.my-rest-api.com/api/resource-type/1
 
-GET-property of a specific resource:
+GET property of a specific resource:
     http://www.my-rest-api.com/api/resource-type/1/property
 ```
 
@@ -200,10 +191,10 @@ Use PUT APIs primarily to **update an existing resource (if the resource does no
 
 #### Examples:
 ```http
-PUT-addition of a resource-type:
+PUT addition of a resource-type:
     http://www.my-rest-api.com/api/resource-type/
 
-PUT-addition of a resource-type's property:
+PUT addition of a resource-type's property:
     http://www.my-rest-api.com/api/resource-type/1/property/456
 ```
 
@@ -211,7 +202,7 @@ PUT-addition of a resource-type's property:
 
 #### PATCH
 
-HTTP PATCH requests are to make a **partial update on a resource**. If you see PUT requests modify a resource entity too. So to make it more precise – the PATCH method is the correct choice for partially updating an existing resource, and you should only use PUT if you’re replacing a resource in its entirety.
+HTTP PATCH requests are to make a **partial update on a resource**. You see PUT requests modify a resource entity too. So to make it more precise, the PATCH method is the correct choice for partially updating an existing resource, and you should only use PUT if you’re replacing a resource in its entirety.
 
 #### DELETE
 
@@ -224,14 +215,14 @@ If the request passes through a cache and the Request-URI identifies one or more
 * A successful response of DELETE requests SHOULD be an HTTP response code **200 (OK)** if the response includes an entity describing the status.
 * The status should be **202 (Accepted)** if the action has been queued.
 * The status should be **204 (No Content)** if the action has been performed but the response does not include an entity.
-* Repeatedly calling DELETE API on that resource will not change the outcome – however, calling DELETE on a resource a second time will return a **404 (NOT FOUND)** since it was already removed.
+* Repeatedly calling DELETE API on that resource will not change the outcome. However, calling DELETE on a resource a second time will return a **404 (NOT FOUND)** since it was already removed.
 
 ##### Example:
 ```http
-DELETE-of a specific resource-type by id:
+DELETE of a specific resource-type by id:
     http://www.my-rest-api.com/api/resource-type/1
 
-DELETE-of a resource-type's property:
+DELETE of a resource-type's property:
     http://www.my-rest-api.com/api/resource-type/1/property/456
 ```
 
@@ -246,10 +237,10 @@ Use POST APIs to create new subordinate resources, e.g., a file is subordinate t
 
 Examples:
 ```http
-POST-action on a specific resource-type by id:
+POST action on a specific resource-type by id:
     http://www.my-rest-api.com/api/resource-type/1
 
-POST-action on a property of a specific resource:
+POST action on a property of a specific resource:
     http://www.my-rest-api.com/api/resource-type/1/property
 ```
 
@@ -274,7 +265,7 @@ A complete list of status codes can be found [here](https://developer.mozilla.or
 
 For certain HTTP methods we can enrich our request by using additional parameters. They are a defined set of parameters attached to the end of a URL. They are an extensions of the URL and are used to help define specific content or actions based on the data being passed.
 
-To append query params to the end of a URL, a *?* is added followed immediately by a parameter.To add multiple parameters, an *&* is added between each.
+To append query params to the end of a URL, a ``?`` is added followed immediately by a parameter.To add multiple parameters, an *&* is added between each.
 
 ```http
 http://www.my-rest-api.com/api?search=keyword
@@ -297,11 +288,9 @@ More information about CORS can be found [here](https://developer.mozilla.org/en
 
 ### Caching
 
-https://restfulapi.net/caching/
-
 Earlier when we stated the constraints of REST, caching was one of them. It stated that a resource should label itself as cacheable or non-cacheable.
 
-This however can easily be done by adding an E-Tag to a response coming from the server. An E-Tag can be seen as a digital fingerprint of your response. Every time the client performs the same request, he can ask if the fingerprint is changes. And instead of the server sending the full response back to the client, the server can respond with a *304-Not modified* response code. Which tells the client nothing has changed and he can used his own caches response from the previous request.
+This however can easily be done by adding an E-Tag to a response coming from the server. An E-Tag can be seen as a digital fingerprint of your response. Every time the client performs the same request, he can ask if the fingerprint has changed. And instead of the server sending the full response back to the client, the server can respond with a *304-Not modified* response code. Which tells the client nothing has changed and he can used his own caches response from the previous request.
 
 An example:
 ```http
@@ -322,7 +311,7 @@ RESPONSE
 < HTTP/2 304 
 ```
 
-Additionally the sever can add an *Expires* or *Cach-Control* header to the response. The first header defines an absolute expiry time for the caches resources. Beyond that time, a cached representation is considered stale and must be re-validated with the origin server. The second header defines if a response is cachable and for how long.
+Additionally the sever can add an *Expires* or *Cach-Control* header to the response. The first header defines an absolute expiry time for the cached resources. Beyond that time, a cached representation is considered stale and must be re-validated with the origin server. The second header defines if a response is cachable and for how long.
 
 ```http
 Expires: Fri, 20 May 2016 19:20:49 GMT
@@ -431,9 +420,7 @@ Simply put, the ``@RequestBody`` annotation maps the HttpRequest body to a trans
 
 ```java
 @PostMapping("/request")
-public ResponseEntity postController(
-  @RequestBody LoginForm loginForm) {
- 
+public ResponseEntity postController(@RequestBody LoginForm loginForm) {
     exampleService.fakeAuthenticate(loginForm);
     return ResponseEntity.ok(HttpStatus.OK);
 }
@@ -467,8 +454,7 @@ public class ExamplePostController {
 
     @PostMapping("/response")
     @ResponseBody
-    public ResponseTransfer postResponseController(
-      @RequestBody LoginForm loginForm) {
+    public ResponseTransfer postResponseController(@RequestBody LoginForm loginForm) {
         return new ResponseTransfer("Thanks For Posting!!!");
      }
 }
@@ -554,10 +540,9 @@ class CustomException extends RuntimeException {}
 @GetMapping("/customHeader")
 ResponseEntity<String> customHeader() {
     HttpHeaders headers = new HttpHeaders();
-    headers.add("Custom-Header", "foo");
+    headers.add("Custom-Header", "myCustomHeader");
         
-    return new ResponseEntity<>(
-      "String body", headers, HttpStatus.OK);
+    return new ResponseEntity<>("String body", headers, HttpStatus.OK);
 }
 ```
 
@@ -588,9 +573,105 @@ public ResponseEntity<String> getBaseUrl(@RequestHeader HttpHeaders headers) {
 
 **TODO**
 
+### Consuming REST endpoint
+
+#### (Deprecated) RestTemplate
+
+RestTemplate used to be the webclient used when doing anything involving HTTP requests. As of Spring Framework 5, alongside the WebFlux stack, Spring introduced a new HTTP client called WebClient. Despite RestTemplate being deprecated, you might still see it being used in many applications.
+
+Below are some examples of RestTemplate being used:
+
+
+GET request for a resource. Giving back a JSON-string
+```java
+final RestTemplate restTemplate = new RestTemplate();
+final String myResourceUrl = "http://www.my-rest-api.com/api/resource-type/";
+
+final ResponseEntity<String> response = restTemplate.getForEntity(myResourceUrl + "/1", String.class);
+```
+
+```java
+final RestTemplate restTemplate = new RestTemplate();
+final String myResourceUrl = "http://www.my-rest-api.com/api/resource-type/";
+
+final HttpEntity<MyResource> request = new HttpEntity<>(new Foo("bar"));
+final MyResource myResource = restTemplate.postForObject(myResourceUrl, request, MyResource.class);
+```
+
+#### WebClient
+
+As of Spring 5 a WebClient implementation as part of the WebFlux framework was introduced. Allowing for asynchronous request handling, something RestTemplate was not able to do.
+
+In order to work properly with the client, we need to know how to:
+
+* Create an instance
+* Make a request
+* Handle the response
+
+```java
+Creating a default client:
+WebClient client = WebClient.create();
+
+Creating a client with a specific url:
+WebClient client = WebClient.create("http://localhost:8080");
+
+Creating a custom client via the builder:
+WebClient client = WebClient.builder()
+  .baseUrl("http://localhost:8080")
+  .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE) 
+  .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8080"))
+  .build();
+```
+
+##### URI Path Component
+```java
+GET - /products
+webClient.get()
+  .uri("/products")
+  .retrieve()
+  .bodyToMono(String.class)
+  .block();
+
+GET - /products/2
+webClient.get()
+  .uri(uriBuilder - > uriBuilder
+    .path("/products/{id}")
+    .build(2))
+  .retrieve()
+  .bodyToMono(String.class)
+  .block();
+
+GET - /products/2/attributes/13
+webClient.get()
+  .uri(uriBuilder - > uriBuilder
+    .path("/products/{id}/attributes/{attributeId}")
+    .build(2, 13))
+  .retrieve()
+  .bodyToMono(String.class)
+  .block();
+```
+
+##### URI Query Parameters
+
+```java
+GET - /products/?name=AndroidPhone&color=black&deliveryDate=13/04/2019
+webClient.get()
+  .uri(uriBuilder - > uriBuilder
+    .path("/products/")
+    .queryParam("name", "AndroidPhone")
+    .queryParam("color", "black")
+    .queryParam("deliveryDate", "13/04/2019")
+    .build())
+  .retrieve()
+  .bodyToMono(String.class)
+  .block();
+```
+
+
 ## Schemas
 
 # Sources
 
 * https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
 * https://www.d.umn.edu/~gshute/softeng/principles.html
+* https://restfulapi.net/caching/
