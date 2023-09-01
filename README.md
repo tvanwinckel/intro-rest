@@ -571,7 +571,7 @@ public ResponseEntity<String> getBaseUrl(@RequestHeader HttpHeaders headers) {
 
 ### Creating a REST API (server)
 
-**TODO**
+Exercise: Create a small server-like application, providing a basic REST api.
 
 ### Consuming REST endpoint
 
@@ -667,11 +667,17 @@ webClient.get()
   .block();
 ```
 
+### Consuming a REST API (client)
+
+Exercise: Create a small client-like application, consuming the api we created in the previous exercise.
 
 ## Schemas
+
+Creating a schema with openAPI.
 
 # Sources
 
 * https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
 * https://www.d.umn.edu/~gshute/softeng/principles.html
 * https://restfulapi.net/caching/
+* https://www.openapis.org/
