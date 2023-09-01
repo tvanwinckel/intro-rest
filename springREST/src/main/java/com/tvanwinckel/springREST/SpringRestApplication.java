@@ -5,9 +5,11 @@ import com.tvanwinckel.springREST.domain.PostRepository;
 import com.tvanwinckel.springREST.domain.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
+@EnableCaching
 public class SpringRestApplication {
 
 	public static void main(String[] args) {

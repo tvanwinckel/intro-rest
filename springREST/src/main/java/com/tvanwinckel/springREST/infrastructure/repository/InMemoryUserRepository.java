@@ -42,13 +42,17 @@ public class InMemoryUserRepository implements UserRepository {
 
     @Override
     public void add(final User user) {
-          users.add(user);
+        users.add(user);
     }
 
     @Override
     public void delete(final UserId userId) {
-        final User user = getById(userId);
-        users.remove(user);
+        try {
+            final User user = getById(userId);
+            users.remove(user);
+        } catch (final Exception e) {
+            throw new UserNotFoundException();
+        }
     }
 
     private void init() {
