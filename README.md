@@ -6,14 +6,17 @@
 
 The goal of this document is to offer an easy to understand overview of what REST is. How it came to be, how it is intended to be used and how you can design your own REST-API
 
-> **TODO - Aanvullen inhoudstabel**
-
 * REST: the theory
-  * Before there was REST
   * Where does REST come from?
-  * ...
+  * Explaining the rules
+  * Zooming in on a resource
+  * Resource methods
+* REST over HTTP
 * REST with Spring
-  * ...
+  * A quick Spring recap
+  * Creating a REST API
+  * Consuming a REST API
+* Schemas
 
 ---
 
@@ -281,7 +284,7 @@ An example of a cross-origin request: the front-end JavaScript code served from 
 
 For security reasons, browsers restrict cross-origin HTTP requests initiated from scripts. For example, XMLHttpRequest and the Fetch API follow the same-origin policy. This means that a web application using those APIs can only request resources from the same origin the application was loaded from unless the response from other origins includes the right CORS headers.
 
-![CORS](https://github.com/tvanwinckel/image.jpg?raw=true "CORS")
+![CORS](https://github.com/tvanwinckel/intro-rest/images/cors.jpg?raw=true "CORS")
 
 More information about CORS can be found [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS "CORS")
 
@@ -571,7 +574,8 @@ public ResponseEntity<String> getBaseUrl(@RequestHeader HttpHeaders headers) {
 
 ### Creating a REST API (server)
 
-Exercise: Create a small server-like application, providing a basic REST api.
+[Exercise: Create a small server-like application, providing a basic REST api.](https://github.com/tvanwinckel/intro-rest/exercises/server.md "REST-Server")
+
 
 ### Consuming REST endpoint
 
@@ -669,7 +673,7 @@ webClient.get()
 
 ### Consuming a REST API (client)
 
-Exercise: Create a small client-like application, consuming the api we created in the previous exercise.
+[Exercise: Create a small client-like application, consuming the api we created in the previous exercise.](https://github.com/tvanwinckel/intro-rest/exercises/client.md "REST-Client")
 
 ## Schemas
 
@@ -679,5 +683,6 @@ Creating a schema with openAPI.
 
 * https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
 * https://www.d.umn.edu/~gshute/softeng/principles.html
-* https://restfulapi.net/caching/
+* https://restfulapi.net/
 * https://www.openapis.org/
+* https://spring.io/guides/tutorials/rest/
